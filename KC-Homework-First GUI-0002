@@ -1,0 +1,41 @@
+from tkinter import *
+from tkinter import ttk
+
+
+def calculate(*args):
+    try:
+        value = float(euro.get())
+        dolar.set((0.8500 * value * 10000.0 + 0.5) / 10000.0)
+    except ValueError:
+        pass
+
+
+root = Tk()
+root.title("Euro to Dolar")  #Titulo
+
+mainframe = ttk.Frame(root, padding="50 3 12 12")
+mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
+mainframe.columnconfigure(0, weight=1)
+mainframe.rowconfigure(0, weight=1)
+
+euro = StringVar()
+dolar = StringVar()
+
+euro_entry = ttk.Entry(mainframe, width=7, textvariable=euro)
+euro_entry.grid(column=2, row=1, sticky=(W, E))
+
+ttk.Label(mainframe, textvariable=dolar).grid(column=2, row=2, sticky=(W, E))
+ttk.Button(mainframe, text="$$$$", command=calculate).grid(column=4, row=3, sticky=W)
+
+
+ttk.Label(mainframe, text="euro").grid(column=3, row=1, sticky=W)
+ttk.Label(mainframe, text="is equivalent to").grid(column=1, row=2, sticky=E)
+ttk.Label(mainframe, text="dolar").grid(column=3, row=2, sticky=W)
+
+for child in mainframe.winfo_children(): child.grid_configure(padx=5, pady=5)
+
+
+euro_entry.focus()
+root.bind('<Return>', calculate)
+
+root.mainloop()
